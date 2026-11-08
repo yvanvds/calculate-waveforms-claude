@@ -53,6 +53,7 @@ test('afspelen stuurt echt een toon van 440 Hz naar de luidspreker', async ({ pa
   await kaart.getByRole('button', { name: 'Speel W1 af' }).click();
   await expect(kaart.getByRole('button', { name: 'Stop W1' })).toBeVisible();
   await expect(kaart.getByText(/Hoor je niets\?/)).toBeVisible();
+  await expect(kaart.getByText(/start hem opnieuw/)).toBeVisible();
   await expect(kaart.getByRole('button', { name: 'Speel W1 af' })).toBeVisible({ timeout: 5000 });
 
   const [meting] = await metingen(page);
