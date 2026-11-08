@@ -1,6 +1,11 @@
 import { describe, expect, it, vi } from 'vitest';
 import { createWave, SAMPLE_COUNT, SAMPLE_RATE, scaleWave } from '../audio/index.ts';
-import { playWave, type AudioContextLike } from './player.ts';
+import {
+  playWave,
+  PlaybackBlockedError,
+  RESUME_TIMEOUT_MS,
+  type AudioContextLike,
+} from './player.ts';
 
 function fakeContext() {
   const copied: Float32Array[] = [];
@@ -52,6 +57,38 @@ describe('afspelen', () => {
     expect(loud[0]).toBeCloseTo(3);
     sources[0].onended?.();
     await done;
+  });
+
+  it('zet een gepauzeerde AudioContext eerst aan', async () => {
+    const { context, sources } = fakeContext();
+    const mutable = context as unknown as { state: string; resume: () => Promise<void> };
+    mutable.state = 'suspended';
+    mutable.resume = vi.fn(async () => {
+      mutable.state = 'running';
+    });
+    const done = playWave(createWave(440, 'sine'), context);
+    await vi.waitFor(() => expect(sources).toHaveLength(1));
+    expect(mutable.resume).toHaveBeenCalled();
+    sources[0].onended?.();
+    await done;
+  });
+
+  it('mislukt met een duidelijke fout als de browser het geluid tegenhoudt', async () => {
+    vi.useFakeTimers();
+    try {
+      const { context, sources } = fakeContext();
+      const mutable = context as unknown as { state: string; resume: () => Promise<void> };
+      mutable.state = 'suspended';
+      // Zoals sommige browsers: de belofte blijft wachten en de context blijft op pauze.
+      mutable.resume = vi.fn(() => new Promise<void>(() => {}));
+      const done = playWave(createWave(440, 'sine'), context);
+      const check = expect(done).rejects.toBeInstanceOf(PlaybackBlockedError);
+      await vi.advanceTimersByTimeAsync(RESUME_TIMEOUT_MS);
+      await check;
+      expect(sources).toHaveLength(0);
+    } finally {
+      vi.useRealTimers();
+    }
   });
 
   it('stopt het vorige geluid als je opnieuw afspeelt', async () => {

@@ -51,7 +51,7 @@ test('een golf maken, inzoomen, afspelen en verwijderen', async ({ page }) => {
   await kaart.getByRole('button', { name: 'Speel W1 af' }).click();
   await expect(kaart.getByRole('button', { name: 'Stop W1' })).toBeVisible();
   await expect(kaart.getByRole('button', { name: 'Speel W1 af' })).toBeVisible({ timeout: 5000 });
-  await expect(kaart.getByText('Afspelen lukte niet in deze browser.')).toHaveCount(0);
+  await expect(kaart.getByText('Afspelen lukte niet')).toHaveCount(0);
 
   // Verwijderen.
   await kaart.getByRole('button', { name: 'Verwijder W1' }).click();
