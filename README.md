@@ -1,5 +1,7 @@
 # Mijn eerste echte project
 
+**De app online:** [Rekenen met waveforms](https://yvanvds.github.io/calculate-waveforms-claude/). Elke push naar `main` publiceert de nieuwste versie vanzelf.
+
 Dit is een startpunt voor een eigen app of website die je met AI bouwt. Je hebt geen programmeerervaring nodig. De AI schrijft de code; deze template zorgt ervoor dat je project een solide basis krijgt en dat je er later zelfstandig mee verder kan.
 
 Je krijgt:
