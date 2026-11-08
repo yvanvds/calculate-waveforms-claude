@@ -1,0 +1,100 @@
+/* Arcadia AI-modules — generated from tokens.json */
+:root, [data-theme="light"] {
+  --bg: #fcfcf8;
+  --surface: #ffffff;
+  --surface-sunken: #f0f6e8;
+  --line: #d6dfcc;
+  --line-strong: #7a8c70;
+  --ink: #19271c;
+  --ink-muted: #55625a;
+  --forest: #103e18;
+  --brand: #76b82a;
+  --on-brand: #103e18;
+  --brand-text: #3d7a14;
+  --primary: #103e18;
+  --primary-hover: #1e5a28;
+  --on-primary: #ffffff;
+  --ai: #0e6f78;
+  --ai-soft: #e2f3f3;
+  --ai-text: #0b5c63;
+  --on-ai: #ffffff;
+  --focus: #0e6f78;
+  --level-0: #f03a32;
+  --level-1: #f47c1b;
+  --level-2: #f8b21a;
+  --level-3: #6b9136;
+  --on-level-0: #071209;
+  --on-level-1: #071209;
+  --on-level-2: #071209;
+  --on-level-3: #071209;
+  --success: #2f6a12;
+  --success-soft: #e6f2d9;
+  --danger: #a8241b;
+  --danger-soft: #fce6e3;
+  --warning: #7a4a06;
+  --warning-soft: #fdf1dc;
+  --shadow-card: 0 1px 2px rgba(16,62,24,0.06), 0 4px 16px rgba(16,62,24,0.06);
+}
+[data-theme="dark"] {
+  --bg: #0f1a12;
+  --surface: #17251a;
+  --surface-sunken: #0b140d;
+  --line: #2c3d2f;
+  --line-strong: #6f8571;
+  --ink: #eaf2e3;
+  --ink-muted: #a9b8a6;
+  --forest: #cfe8b0;
+  --brand: #8fcf45;
+  --on-brand: #0f1a12;
+  --brand-text: #8fcf45;
+  --primary: #8fcf45;
+  --primary-hover: #a6dd66;
+  --on-primary: #0f1a12;
+  --ai: #5fd0d6;
+  --ai-soft: #123033;
+  --ai-text: #7fdde2;
+  --on-ai: #0f1a12;
+  --focus: #5fd0d6;
+  --level-0: #f03a32;
+  --level-1: #f47c1b;
+  --level-2: #f8b21a;
+  --level-3: #6b9136;
+  --on-level-0: #071209;
+  --on-level-1: #071209;
+  --on-level-2: #071209;
+  --on-level-3: #071209;
+  --success: #9ad65a;
+  --success-soft: #1a2e14;
+  --danger: #ff9a8c;
+  --danger-soft: #3a1714;
+  --warning: #f8c55a;
+  --warning-soft: #33270f;
+  --shadow-card: 0 1px 2px rgba(0,0,0,0.4);
+}
+:root {
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 72px;
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-full: 999px;
+  --content-max: 1120px;
+  --shell-bar: 56px;
+  --font-sans: "Figtree", "Segoe UI", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "Cascadia Code", Consolas, monospace;
+}
+.display { font-family: var(--font-sans); font-size: 56px; line-height: 58px; font-weight: 800; letter-spacing: -0.02em; }
+.h1 { font-family: var(--font-sans); font-size: 40px; line-height: 44px; font-weight: 800; letter-spacing: -0.015em; }
+.h2 { font-family: var(--font-sans); font-size: 28px; line-height: 34px; font-weight: 800; letter-spacing: -0.01em; }
+.h3 { font-family: var(--font-sans); font-size: 21px; line-height: 28px; font-weight: 700; }
+.lead { font-family: var(--font-sans); font-size: 19px; line-height: 28px; font-weight: 500; }
+.body { font-family: var(--font-sans); font-size: 17px; line-height: 26px; font-weight: 400; }
+.small { font-family: var(--font-sans); font-size: 15px; line-height: 22px; font-weight: 400; }
+.label { font-family: var(--font-sans); font-size: 13px; line-height: 16px; font-weight: 700; letter-spacing: 0.08em; }
+.prompt { font-family: var(--font-mono); font-size: 15px; line-height: 24px; font-weight: 400; }

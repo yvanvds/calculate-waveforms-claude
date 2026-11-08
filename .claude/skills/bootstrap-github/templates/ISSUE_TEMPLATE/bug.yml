@@ -1,0 +1,43 @@
+name: Fout
+description: Iets werkt niet zoals het zou moeten.
+title: "[Fout]: "
+labels: ["bug"]
+body:
+  - type: textarea
+    id: summary
+    attributes:
+      label: Wat gaat er fout?
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Wanneer treedt de fout op?
+      description: De stappen om de fout opnieuw te zien.
+      placeholder: |
+        1. Ga naar ...
+        2. Klik op ...
+        3. Je ziet ...
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Wat had er moeten gebeuren?
+    validations:
+      required: true
+  - type: textarea
+    id: cause
+    attributes:
+      label: Mogelijke oorzaak
+      description: Waar zit het probleem waarschijnlijk?
+  - type: textarea
+    id: environment
+    attributes:
+      label: Omgeving
+      description: Besturingssysteem, browser, versie.
+  - type: textarea
+    id: notes
+    attributes:
+      label: Extra informatie
+      description: Foutmeldingen, schermafbeeldingen, links naar andere issues.

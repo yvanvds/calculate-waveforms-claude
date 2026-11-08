@@ -1,0 +1,19 @@
+name: Onderhoud
+description: Werk achter de schermen, zoals opruimen, hulpmiddelen en updates.
+title: "[Onderhoud]: "
+labels: ["chore"]
+body:
+  - type: textarea
+    id: scope
+    attributes:
+      label: Wat moet er gebeuren?
+    validations:
+      required: true
+  - type: textarea
+    id: motivation
+    attributes:
+      label: Waarom nu?
+  - type: textarea
+    id: notes
+    attributes:
+      label: Extra informatie

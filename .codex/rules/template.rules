@@ -1,0 +1,36 @@
+# Aanvulling op sandbox + automatische beoordeling; geen volledige commandofilter.
+# Prefixregels zien alleen het begin van een argumentenlijst.
+prefix_rule(
+    pattern = ["git", "reset"],
+    decision = "forbidden",
+    justification = "Bewaar bestaand werk. Bewerk alleen de eigen bestanden of gebruik git restore --staged om te ontstagen.",
+    match = ["git reset --hard", "git reset --hard HEAD"],
+)
+prefix_rule(
+    pattern = ["git", "clean"],
+    decision = "forbidden",
+    justification = "Verwijder geen niet-opgeslagen bestanden met git clean.",
+    match = ["git clean -fd"],
+)
+prefix_rule(
+    pattern = ["gh", "repo", "delete"],
+    decision = "forbidden",
+    justification = "Een repository verwijderen hoort niet bij deze werkwijze.",
+    match = ["gh repo delete voorbeeld/project --yes"],
+)
+# Gewone pushes gaan door de beoordelaar als extra rechten nodig zijn.
+# Veelgebruikte force-varianten blokkeren we expliciet. Andere argumentvolgordes
+# worden niet allemaal door deze prefixregels gedekt; zie AGENTS.md en docs/CODEX.md.
+prefix_rule(
+    pattern = ["git", "push", ["--force", "-f", "--force-with-lease"]],
+    decision = "forbidden",
+    justification = "Herschrijf geen gepubliceerde geschiedenis; gebruik een gewone push.",
+    match = ["git push --force", "git push -f origin main", "git push --force-with-lease"],
+    not_match = ["git push", "git push -u origin codex/issue-1"],
+)
+prefix_rule(
+    pattern = ["git", "push", "origin", ["--force", "-f", "--force-with-lease"]],
+    decision = "forbidden",
+    justification = "Herschrijf geen gepubliceerde geschiedenis; gebruik een gewone push.",
+    match = ["git push origin --force", "git push origin -f main", "git push origin --force-with-lease"],
+)

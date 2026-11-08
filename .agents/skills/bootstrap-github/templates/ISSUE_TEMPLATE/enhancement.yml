@@ -1,0 +1,28 @@
+name: Verbetering
+description: Iets dat al bestaat, beter maken.
+title: "[Verbetering]: "
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: current
+    attributes:
+      label: Hoe werkt het nu?
+    validations:
+      required: true
+  - type: textarea
+    id: proposed
+    attributes:
+      label: Hoe moet het worden?
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Wanneer is dit klaar?
+      description: Waaraan zien we dat het werkt?
+    validations:
+      required: true
+  - type: textarea
+    id: notes
+    attributes:
+      label: Extra informatie

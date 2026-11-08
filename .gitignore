@@ -1,0 +1,29 @@
+# Afhankelijkheden en buildresultaten
+node_modules/
+dist/
+build/
+.astro/
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.pub-cache/
+.pub/
+coverage/
+
+# Tijdelijke teksten voor issues en pull requests
+.tmp/
+
+# Geheimen en lokale instellingen
+.env
+.env.*
+!.env.example
+.claude/settings.local.json
+
+# Besturingssysteem en editors
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+.~lock*
+~$*

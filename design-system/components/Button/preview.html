@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="nl">
+<head><meta charset="utf-8"><title>Button: voorbeeld</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>if (new URLSearchParams(location.search).get('theme') === 'dark') document.documentElement.setAttribute('data-theme', 'dark');</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;700;800&family=JetBrains+Mono:wght@400;600&display=swap">
+<link rel="stylesheet" href="../../tokens.css">
+<link rel="stylesheet" href="../bundle.css">
+<script src="../bundle.js"></script>
+<style>body{padding:16px;background:var(--bg)}</style></head>
+<body class="ai-root">
+<div class="ai-stack">
+<div class="ai-row"><button class="ai-btn ai-btn--primary">Volgende <svg class="ai-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button><button class="ai-btn ai-btn--secondary">Controleer</button><button class="ai-btn ai-btn--ghost"><svg class="ai-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg> Vorige</button><button class="ai-btn ai-btn--ai"><svg class="ai-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><circle cx="12" cy="3.5" r="1.5"/><circle cx="12" cy="20.5" r="1.5"/><circle cx="3.5" cy="12" r="1.5"/><circle cx="20.5" cy="12" r="1.5"/><path d="M12 5v4M12 15v4M5 12h4M15 12h4"/></svg> Vraag het aan AI</button></div>
+<div class="ai-row"><button class="ai-btn ai-btn--primary ai-btn--sm">Klein</button><button class="ai-btn ai-btn--secondary ai-btn--sm">Klein</button><button class="ai-btn ai-btn--primary" disabled>Kies eerst een antwoord</button></div>
+</div>
+<script>window.ArcadiaAI && window.ArcadiaAI.init();</script>
+</body>
+</html>

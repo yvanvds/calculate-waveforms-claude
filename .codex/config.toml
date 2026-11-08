@@ -1,0 +1,12 @@
+# Geldt pas nadat deze projectmap lokaal als vertrouwd is ingesteld.
+# Hogere organisatievereisten en sessie-instellingen blijven gelden.
+approval_policy = "on-request"
+approvals_reviewer = "auto_review"
+sandbox_mode = "workspace-write"
+
+[sandbox_workspace_write]
+# Nodig voor GitHub, pakketten en browserdownloads voor tests.
+network_access = true
+
+[agents]
+enabled = true

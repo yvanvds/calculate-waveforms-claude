@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="nl">
+<head><meta charset="utf-8"><title>Hero: voorbeeld</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>if (new URLSearchParams(location.search).get('theme') === 'dark') document.documentElement.setAttribute('data-theme', 'dark');</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;700;800&family=JetBrains+Mono:wght@400;600&display=swap">
+<link rel="stylesheet" href="../../tokens.css">
+<link rel="stylesheet" href="../bundle.css">
+<script src="../bundle.js"></script>
+<style>body{padding:16px;background:var(--bg)}body{padding:0}</style></head>
+<body class="ai-root">
+<section class="ai-hero"><div class="ai-hero__inner">
+  <div class="ai-hero__text">
+    <p class="ai-eyebrow">Deel 3 · Onderwerp</p>
+    <h1 class="ai-hero__title">Titel van dit deel</h1>
+    <p class="ai-hero__lead">Een korte inleiding op wat je hier vindt.</p>
+    <div class="ai-hero__meta"><span><svg class="ai-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/><path d="M7 12h3M14 12h3"/></svg>6 stappen</span><span><svg class="ai-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>± 12 min</span><span class="ai-level" data-level="2"><span class="ai-level__num">2</span>AI-niveau 2 <span class="ai-level__name">· Ondersteuning</span></span></div>
+    <div class="ai-hero__actions"><a class="ai-btn ai-btn--primary" href="#">Start <svg class="ai-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="ai-btn ai-btn--ghost" href="#">Meer informatie</a></div>
+  </div>
+  <svg class="ai-net ai-hero__art" viewBox="0 0 240 240" role="img" aria-label="AI-netwerk">
+  <line x1="120" y1="120" x2="120" y2="28"/><line x1="120" y1="120" x2="120" y2="212"/><line x1="120" y1="120" x2="28" y2="120"/><line x1="120" y1="120" x2="212" y2="120"/>
+  <line x1="120" y1="120" x2="55" y2="55"/><line x1="120" y1="120" x2="185" y2="55"/><line x1="120" y1="120" x2="55" y2="185"/><line x1="120" y1="120" x2="185" y2="185"/>
+  <circle class="n n--brand" cx="120" cy="28" r="13"/><circle class="n" cx="185" cy="55" r="11"/><circle class="n n--ai" cx="212" cy="120" r="13"/><circle class="n" cx="185" cy="185" r="11"/>
+  <circle class="n n--brand" cx="120" cy="212" r="13"/><circle class="n" cx="55" cy="185" r="11"/><circle class="n n--ai" cx="28" cy="120" r="13"/><circle class="n" cx="55" cy="55" r="11"/>
+  <rect class="core" x="78" y="86" width="84" height="68" rx="16"/><text class="core-text" x="120" y="132" text-anchor="middle">AI</text>
+</svg>
+</div></section>
+<script>window.ArcadiaAI && window.ArcadiaAI.init();</script>
+</body>
+</html>

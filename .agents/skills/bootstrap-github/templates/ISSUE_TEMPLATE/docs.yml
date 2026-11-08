@@ -1,0 +1,20 @@
+name: Documentatie
+description: Uitleg die geschreven of aangepast moet worden.
+title: "[Documentatie]: "
+labels: ["docs"]
+body:
+  - type: textarea
+    id: subject
+    attributes:
+      label: Wat moet er uitgelegd worden?
+    validations:
+      required: true
+  - type: textarea
+    id: audience
+    attributes:
+      label: Voor wie en waar?
+      description: Wie leest dit, en waar hoort het te staan?
+  - type: textarea
+    id: notes
+    attributes:
+      label: Extra informatie

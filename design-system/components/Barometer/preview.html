@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="nl">
+<head><meta charset="utf-8"><title>Barometer: voorbeeld</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>if (new URLSearchParams(location.search).get('theme') === 'dark') document.documentElement.setAttribute('data-theme', 'dark');</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;700;800&family=JetBrains+Mono:wght@400;600&display=swap">
+<link rel="stylesheet" href="../../tokens.css">
+<link rel="stylesheet" href="../bundle.css">
+<script src="../bundle.js"></script>
+<style>body{padding:16px;background:var(--bg)}</style></head>
+<body class="ai-root">
+<div class="ai-stack"><div class="ai-baro" role="group" aria-label="AI-barometer"><button type="button" class="ai-baro__seg" data-level="0"><b>0</b>Geen AI</button><button type="button" class="ai-baro__seg" data-level="1"><b>1</b>Voorbereiding</button><button type="button" class="ai-baro__seg" data-level="2" aria-pressed="true"><b>2</b>Ondersteuning</button><button type="button" class="ai-baro__seg" data-level="3"><b>3</b>Uitvoering</button></div><div class="ai-baro" data-readonly role="group" aria-label="AI-barometer"><button type="button" class="ai-baro__seg" data-level="0"><b>0</b>Geen AI</button><button type="button" class="ai-baro__seg" data-level="1" aria-current="true"><b>1</b>Voorbereiding</button><button type="button" class="ai-baro__seg" data-level="2"><b>2</b>Ondersteuning</button><button type="button" class="ai-baro__seg" data-level="3"><b>3</b>Uitvoering</button></div></div>
+<script>window.ArcadiaAI && window.ArcadiaAI.init();</script>
+</body>
+</html>

@@ -1,0 +1,34 @@
+name: Nieuwe functie
+description: Iets dat de app nog niet kan.
+title: "[Functie]: "
+labels: ["feature"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Waarom is dit nodig?
+      description: Welk probleem lost het op, en voor wie?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Gewenst resultaat
+      description: Wat moet er gebouwd worden?
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Wanneer is dit klaar?
+      description: Waaraan zien we dat het werkt?
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Overwogen alternatieven
+  - type: textarea
+    id: notes
+    attributes:
+      label: Extra informatie
