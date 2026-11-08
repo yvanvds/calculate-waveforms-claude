@@ -1,5 +1,13 @@
 // De lijst golven op het scherm. Gewone functies: elke functie geeft een nieuwe werkruimte terug.
-import { createWave, waveName, type Samples, type WaveShape } from '../audio/index.ts';
+import {
+  addWaves,
+  createWave,
+  scaleWave,
+  waveName,
+  type Samples,
+  type WaveShape,
+} from '../audio/index.ts';
+import { formatNumber } from './labels.ts';
 
 /** Een golf die de leerling zelf maakt: frequentie en vorm zijn te kiezen. */
 export interface GeneratedSource {
@@ -60,6 +68,32 @@ export function addGeneratedWave(ws: Workspace, frequency: number, shape: WaveSh
 /** Voegt het resultaat van een bewerking toe met een nieuwe naam. */
 export function addComputedWave(ws: Workspace, samples: Samples, description: string): Workspace {
   return addWave(ws, samples, { kind: 'computed', description });
+}
+
+/** De naam die de volgende nieuwe golf krijgt. */
+export function nextWaveName(ws: Workspace): string {
+  return waveName(ws.waveCount + 1);
+}
+
+function findWave(ws: Workspace, name: string): WaveItem | undefined {
+  return ws.waves.find((wave) => wave.name === name);
+}
+
+/** Maakt een nieuwe golf: `factor` × de golf `name`, bijvoorbeeld "W3 = 0,5 × W1". */
+export function addScaledWave(ws: Workspace, name: string, factor: number): Workspace {
+  const wave = findWave(ws, name);
+  if (!wave || !Number.isFinite(factor)) return ws;
+  const description = `${nextWaveName(ws)} = ${formatNumber(factor)} × ${name}`;
+  return addComputedWave(ws, scaleWave(wave.samples, factor), description);
+}
+
+/** Maakt een nieuwe golf: de som van de golven `first` en `second`, bijvoorbeeld "W3 = W1 + W2". */
+export function addSummedWave(ws: Workspace, first: string, second: string): Workspace {
+  const a = findWave(ws, first);
+  const b = findWave(ws, second);
+  if (!a || !b) return ws;
+  const description = `${nextWaveName(ws)} = ${first} + ${second}`;
+  return addComputedWave(ws, addWaves(a.samples, b.samples), description);
 }
 
 /** Past frequentie en vorm van een zelfgemaakte golf aan. De naam blijft dezelfde. */

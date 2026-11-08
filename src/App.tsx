@@ -2,10 +2,25 @@ import { useState } from 'react';
 import { WaveCard } from './components/WaveCard.tsx';
 import { WaveSettings } from './components/WaveSettings.tsx';
 import { describeWave } from './workspace/labels.ts';
-import { initialWorkspace, removeWave, updateGeneratedWave } from './workspace/workspace.ts';
+import {
+  addGeneratedWave,
+  addScaledWave,
+  addSummedWave,
+  DEFAULT_FREQUENCY,
+  DEFAULT_SHAPE,
+  initialWorkspace,
+  nextWaveName,
+  removeWave,
+  updateGeneratedWave,
+} from './workspace/workspace.ts';
+import { NewWaveOperation } from './components/operations/NewWaveOperation.tsx';
+import { OperationsBar } from './components/operations/OperationsBar.tsx';
+import { ScaleOperation } from './components/operations/ScaleOperation.tsx';
+import { SumOperation } from './components/operations/SumOperation.tsx';
 
 function App() {
   const [workspace, setWorkspace] = useState(initialWorkspace);
+  const names = workspace.waves.map((wave) => wave.name);
 
   return (
     <main className="app">
@@ -42,6 +57,23 @@ function App() {
           />
         ))}
       </section>
+
+      <OperationsBar>
+        <NewWaveOperation
+          nextName={nextWaveName(workspace)}
+          onAdd={() =>
+            setWorkspace((ws) => addGeneratedWave(ws, DEFAULT_FREQUENCY, DEFAULT_SHAPE))
+          }
+        />
+        <ScaleOperation
+          names={names}
+          onScale={(name, factor) => setWorkspace((ws) => addScaledWave(ws, name, factor))}
+        />
+        <SumOperation
+          names={names}
+          onSum={(first, second) => setWorkspace((ws) => addSummedWave(ws, first, second))}
+        />
+      </OperationsBar>
     </main>
   );
 }
