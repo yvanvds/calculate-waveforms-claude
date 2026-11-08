@@ -15,3 +15,15 @@
   max-width: 65ch;
   color: var(--ink);
 }
+
+.app__waves {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  margin-top: var(--space-7);
+}
+
+.app__empty {
+  margin: 0;
+  color: var(--ink-muted);
+}
