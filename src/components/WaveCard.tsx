@@ -72,7 +72,8 @@ export function WaveCard({ name, description, samples, settings, onRemove }: Wav
       </div>
       {playing && (
         <p className="wave-card__note" role="status">
-          Hoor je niets? Kijk of dit tabblad, de browser of je computer niet op stil staat.
+          Hoor je niets? Kijk of dit tabblad, de browser of je computer niet op stil staat. Helpt
+          dat niet, sluit de browser dan helemaal af en start hem opnieuw.
         </p>
       )}
       {playError && (

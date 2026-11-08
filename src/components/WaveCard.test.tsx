@@ -54,6 +54,8 @@ describe('WaveCard', () => {
     render(<WaveCard name="W1" description="Sinus" samples={createWave(440, 'sine')} onRemove={() => {}} />);
     fireEvent.click(screen.getByRole('button', { name: 'Speel W1 af' }));
     expect(screen.getByText(/Hoor je niets\?/)).toBeInTheDocument();
+    // Een browser die al lang openstaat, kan zijn verbinding met de geluidskaart kwijt zijn.
+    expect(screen.getByText(/sluit de browser dan helemaal af en start hem opnieuw/)).toBeInTheDocument();
     finish();
     expect(await screen.findByRole('button', { name: 'Speel W1 af' })).toBeInTheDocument();
     expect(screen.queryByText(/Hoor je niets\?/)).not.toBeInTheDocument();
