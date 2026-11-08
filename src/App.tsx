@@ -1,4 +1,12 @@
+import { useState } from 'react';
+import { WaveCard } from './components/WaveCard.tsx';
+import { WaveSettings } from './components/WaveSettings.tsx';
+import { describeWave } from './workspace/labels.ts';
+import { initialWorkspace, removeWave, updateGeneratedWave } from './workspace/workspace.ts';
+
 function App() {
+  const [workspace, setWorkspace] = useState(initialWorkspace);
+
   return (
     <main className="app">
       <header className="ai-stack app__intro">
@@ -9,6 +17,31 @@ function App() {
           hoor meteen wat er met het geluid gebeurt.
         </p>
       </header>
+
+      <section className="app__waves" aria-label="Golven">
+        {workspace.waves.length === 0 && <p className="app__empty">Er zijn geen golven.</p>}
+        {workspace.waves.map((wave) => (
+          <WaveCard
+            key={wave.name}
+            name={wave.name}
+            description={describeWave(wave)}
+            samples={wave.samples}
+            onRemove={() => setWorkspace((ws) => removeWave(ws, wave.name))}
+            settings={
+              wave.source.kind === 'generated' ? (
+                <WaveSettings
+                  name={wave.name}
+                  frequency={wave.source.frequency}
+                  shape={wave.source.shape}
+                  onChange={(frequency, shape) =>
+                    setWorkspace((ws) => updateGeneratedWave(ws, wave.name, frequency, shape))
+                  }
+                />
+              ) : undefined
+            }
+          />
+        ))}
+      </section>
     </main>
   );
 }

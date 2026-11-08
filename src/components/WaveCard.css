@@ -1,0 +1,27 @@
+.wave-card {
+  gap: var(--space-4);
+}
+
+.wave-card__actions {
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.wave-card__note {
+  margin: 0;
+  font-size: 15px;
+  line-height: 22px;
+}
+
+.wave-settings {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--space-4);
+}
+
+.wave-settings__error {
+  margin: 0;
+  color: var(--danger);
+  font-size: 15px;
+  line-height: 22px;
+}
