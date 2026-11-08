@@ -19,6 +19,42 @@
   gap: var(--space-4);
 }
 
+.envelope-presets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.envelope-presets [aria-pressed='true'] {
+  border-color: var(--brand-text);
+  color: var(--brand-text);
+}
+
+.envelope-sliders {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--space-4);
+}
+
+.envelope-slider {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.envelope-slider__input {
+  flex: 1;
+  min-width: 0;
+  accent-color: var(--brand-text);
+}
+
+.envelope-slider__value {
+  min-width: 4.5ch;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  color: var(--ink);
+}
+
 .wave-settings__error {
   margin: 0;
   color: var(--danger);

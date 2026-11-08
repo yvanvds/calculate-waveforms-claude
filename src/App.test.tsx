@@ -4,8 +4,11 @@ import App from './App.tsx';
 
 // uPlot tekent op een canvas, en dat bestaat niet in de testomgeving.
 // De grafiek wordt getest met de echte app (e2e/golf.spec.ts).
+// De vervanger toont de waarde na 0,1 seconde, zodat een test kan zien dat de grafiek verandert.
 vi.mock('./components/WaveChart.tsx', () => ({
-  WaveChart: ({ name }: { name: string }) => <div role="img" aria-label={`Grafiek van ${name}`} />,
+  WaveChart: ({ name, samples }: { name: string; samples: Float32Array }) => (
+    <div role="img" aria-label={`Grafiek van ${name}`} data-waarde={samples[4410]} />
+  ),
 }));
 
 describe('App', () => {
@@ -135,5 +138,95 @@ describe('Bewerkingen', () => {
     expect(within(bar()).getByRole('button', { name: 'Vermenigvuldig' })).toBeDisabled();
     expect(within(bar()).getByRole('button', { name: 'Tel op' })).toBeDisabled();
     expect(within(bar()).getByRole('button', { name: 'Nieuwe golf' })).toBeEnabled();
+  });
+});
+
+describe('Envelopes', () => {
+  function bar() {
+    return screen.getByRole('region', { name: 'Bewerkingen' });
+  }
+  function addEnvelope() {
+    fireEvent.click(within(bar()).getByRole('button', { name: 'Envelope toevoegen' }));
+  }
+  function chartValue(card: HTMLElement): number {
+    return Number(within(card).getByRole('img').getAttribute('data-waarde'));
+  }
+
+  it('voegt E1 toe met vier schuifjes, een grafiek en zonder afspeelknop', () => {
+    render(<App />);
+    addEnvelope();
+    const card = screen.getByRole('article', { name: 'Envelope E1' });
+    for (const label of ['Attack', 'Decay', 'Sustain', 'Release']) {
+      expect(within(card).getByLabelText(`${label} van E1`)).toHaveAttribute('type', 'range');
+    }
+    expect(within(card).getByRole('img', { name: 'Grafiek van E1' })).toBeInTheDocument();
+    expect(within(card).queryByRole('button', { name: /Speel/ })).not.toBeInTheDocument();
+    expect(within(card).getByText('0,2 s')).toBeInTheDocument();
+  });
+
+  it('stijgt trager met een grotere attack', () => {
+    render(<App />);
+    addEnvelope();
+    const card = screen.getByRole('article', { name: 'Envelope E1' });
+    const before = chartValue(card);
+    fireEvent.change(within(card).getByLabelText('Attack van E1'), { target: { value: '1' } });
+    expect(within(card).getByText('1 s')).toBeInTheDocument();
+    expect(chartValue(card)).toBeLessThan(before);
+  });
+
+  it('zet de schuifjes op "Orgel" in één klik', () => {
+    render(<App />);
+    addEnvelope();
+    const card = screen.getByRole('article', { name: 'Envelope E1' });
+    const before = chartValue(card);
+    fireEvent.click(within(card).getByRole('button', { name: 'Orgel' }));
+    expect(within(card).getByLabelText('Sustain van E1')).toHaveValue('1');
+    expect(within(card).getByLabelText('Attack van E1')).toHaveValue('0.01');
+    expect(within(card).getByRole('button', { name: 'Orgel' })).toHaveAttribute(
+      'aria-pressed',
+      'true',
+    );
+    expect(chartValue(card)).not.toBe(before);
+  });
+
+  it('vermenigvuldigt W1 met E1, en W1 en E1 blijven ongewijzigd', () => {
+    render(<App />);
+    addEnvelope();
+    const panel = within(bar()).getByRole('group', { name: 'Golf vermenigvuldigen met een envelope' });
+    expect(within(panel).getByLabelText('Golf')).toHaveValue('W1');
+    expect(within(panel).getByLabelText('Envelope')).toHaveValue('E1');
+    fireEvent.click(within(panel).getByRole('button', { name: 'Pas envelope toe' }));
+    const card = screen.getByRole('article', { name: 'Golf W2' });
+    expect(within(card).getByText('W2 = W1 × E1')).toBeInTheDocument();
+    expect(within(card).getByRole('button', { name: 'Speel W2 af' })).toBeInTheDocument();
+    expect(screen.getByRole('article', { name: 'Golf W1' })).toHaveTextContent('Sinus, 440 Hz');
+    expect(screen.getByRole('article', { name: 'Envelope E1' })).toBeInTheDocument();
+
+    // De nieuwe golf kan je gebruiken in een andere bewerking.
+    const sum = within(bar()).getByRole('group', { name: 'Twee golven optellen' });
+    fireEvent.change(within(sum).getByLabelText('Eerste golf'), { target: { value: 'W2' } });
+    fireEvent.change(within(sum).getByLabelText('Tweede golf'), { target: { value: 'W1' } });
+    fireEvent.click(within(sum).getByRole('button', { name: 'Tel op' }));
+    expect(screen.getByText('W3 = W2 + W1')).toBeInTheDocument();
+  });
+
+  it('nummert envelopes apart: na W1, W2 en E1 komt E2', () => {
+    render(<App />);
+    fireEvent.click(within(bar()).getByRole('button', { name: 'Nieuwe golf' }));
+    addEnvelope();
+    expect(within(bar()).getByText(/Maakt E2/)).toBeInTheDocument();
+    addEnvelope();
+    expect(screen.getByRole('article', { name: 'Envelope E2' })).toBeInTheDocument();
+  });
+
+  it('verwijdert E1 en schakelt de bewerking uit zonder envelopes', () => {
+    render(<App />);
+    const panel = within(bar()).getByRole('group', { name: 'Golf vermenigvuldigen met een envelope' });
+    expect(within(panel).getByRole('button', { name: 'Pas envelope toe' })).toBeDisabled();
+    addEnvelope();
+    expect(within(panel).getByRole('button', { name: 'Pas envelope toe' })).toBeEnabled();
+    fireEvent.click(screen.getByRole('button', { name: 'Verwijder E1' }));
+    expect(screen.queryByRole('article', { name: 'Envelope E1' })).not.toBeInTheDocument();
+    expect(within(panel).getByRole('button', { name: 'Pas envelope toe' })).toBeDisabled();
   });
 });

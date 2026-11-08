@@ -27,10 +27,12 @@ interface WaveChartProps {
   /** Naam van de golf, voor schermlezers. */
   name: string;
   samples: Samples;
+  /** Een envelope toont het volume van 0 tot 1, een golf de waarde van -1 tot 1 of meer. */
+  variant?: 'wave' | 'envelope';
 }
 
-/** Grafiek van een golf. Inzoomen kan door te slepen of met de knoppen eronder. */
-export function WaveChart({ name, samples }: WaveChartProps) {
+/** Grafiek van een golf of envelope. Inzoomen kan door te slepen of met de knoppen eronder. */
+export function WaveChart({ name, samples, variant = 'wave' }: WaveChartProps) {
   const holderRef = useRef<HTMLDivElement>(null);
   const plotRef = useRef<uPlot | null>(null);
   const rangeRef = useRef<TimeRange>(FULL_RANGE);
@@ -41,6 +43,7 @@ export function WaveChart({ name, samples }: WaveChartProps) {
     const holder = holderRef.current;
     if (!holder) return;
 
+    const envelope = variant === 'envelope';
     const muted = token('ink-muted');
     const line = token('line');
     const axis = { stroke: muted, grid: { stroke: line, width: 1 }, ticks: { stroke: line, width: 1 } };
@@ -54,13 +57,19 @@ export function WaveChart({ name, samples }: WaveChartProps) {
         scales: {
           x: { time: false, auto: false },
           y: {
-            // Altijd minstens -1 tot 1 tonen, en meer als de golf verder gaat.
-            range: (_u, min, max) => [Math.min(-1, min) * 1.1, Math.max(1, max) * 1.1],
+            // Een golf: altijd minstens -1 tot 1 tonen, en meer als de golf verder gaat.
+            // Een envelope: altijd 0 tot 1.
+            range: (_u, min, max) =>
+              envelope ? [-0.05, 1.1] : [Math.min(-1, min) * 1.1, Math.max(1, max) * 1.1],
           },
         },
         axes: [
           { ...axis, label: 'Tijd (s)', values: (_u, ticks) => ticks.map((t) => formatNumber(t)) },
-          { ...axis, label: 'Waarde', values: (_u, ticks) => ticks.map((t) => formatNumber(t)) },
+          {
+            ...axis,
+            label: envelope ? 'Volume' : 'Waarde',
+            values: (_u, ticks) => ticks.map((t) => formatNumber(t)),
+          },
         ],
         series: [{}, { label: name, stroke: token('brand-text'), width: 1.5, points: { show: false } }],
         hooks: {
@@ -89,7 +98,7 @@ export function WaveChart({ name, samples }: WaveChartProps) {
       plot.destroy();
       plotRef.current = null;
     };
-  }, [name]);
+  }, [name, variant]);
 
   useEffect(() => {
     const plot = plotRef.current;
