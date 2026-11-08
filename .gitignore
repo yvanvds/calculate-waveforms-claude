@@ -10,6 +10,12 @@ build/
 .pub/
 coverage/
 
+# Uitvoer van Playwright
+test-results/
+playwright-report/
+blob-report/
+playwright/.cache/
+
 # Tijdelijke teksten voor issues en pull requests
 .tmp/
 
