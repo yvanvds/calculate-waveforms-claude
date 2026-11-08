@@ -70,10 +70,25 @@ export function WaveCard({ name, description, samples, settings, onRemove }: Wav
           Verwijder {name}
         </button>
       </div>
-      {playError && (
-        <p className="wave-card__note" role="alert">
-          Afspelen lukte niet in deze browser.
+      {playing && (
+        <p className="wave-card__note" role="status">
+          Hoor je niets? Kijk of dit tabblad, de browser of je computer niet op stil staat.
         </p>
+      )}
+      {playError && (
+        <div className="ai-callout ai-callout--warning" role="alert">
+          <svg className="ai-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M11 5 6 9H2v6h4l5 4V5z" />
+            <path d="m22 9-6 6M16 9l6 6" />
+          </svg>
+          <div>
+            <p className="ai-callout__title">Afspelen lukte niet</p>
+            <p className="wave-card__note">
+              De browser houdt het geluid tegen. Klik nog eens op Speel {name} af, of kijk of geluid
+              toegestaan is voor deze site.
+            </p>
+          </div>
+        </div>
       )}
     </article>
   );

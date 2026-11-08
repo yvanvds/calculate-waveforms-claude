@@ -47,4 +47,25 @@ describe('WaveCard', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Verwijder W1' }));
     expect(onRemove).toHaveBeenCalled();
   });
+
+  it('toont tijdens het afspelen wat je kan nakijken als je niets hoort', async () => {
+    let finish = () => {};
+    playWave.mockImplementationOnce(() => new Promise<void>((resolve) => (finish = resolve)));
+    render(<WaveCard name="W1" description="Sinus" samples={createWave(440, 'sine')} onRemove={() => {}} />);
+    fireEvent.click(screen.getByRole('button', { name: 'Speel W1 af' }));
+    expect(screen.getByText(/Hoor je niets\?/)).toBeInTheDocument();
+    finish();
+    expect(await screen.findByRole('button', { name: 'Speel W1 af' })).toBeInTheDocument();
+    expect(screen.queryByText(/Hoor je niets\?/)).not.toBeInTheDocument();
+  });
+
+  it('toont een melding als afspelen mislukt', async () => {
+    playWave.mockImplementationOnce(() => Promise.reject(new Error('tegengehouden')));
+    render(<WaveCard name="W1" description="Sinus" samples={createWave(440, 'sine')} onRemove={() => {}} />);
+    fireEvent.click(screen.getByRole('button', { name: 'Speel W1 af' }));
+    const melding = await screen.findByRole('alert');
+    expect(melding).toHaveTextContent('Afspelen lukte niet');
+    expect(melding).toHaveTextContent('De browser houdt het geluid tegen.');
+    expect(melding.querySelector('svg')).not.toBeNull();
+  });
 });
