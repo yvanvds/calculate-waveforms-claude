@@ -37,7 +37,7 @@ Gebruik `design-system/README.md`. Voor React laad je `design-system/tokens.css`
 
 ## Ontwikkelen, testen en bouwen
 
-De app is nog niet aangemaakt. Het eerste issue zet het Vite-project op en moet deze scripts in `package.json` voorzien. Werk deze sectie daarna bij als een commando anders blijkt te werken.
+Werk deze sectie bij als een commando anders blijkt te werken.
 
 | Wat | Commando |
 |---|---|
@@ -47,6 +47,11 @@ De app is nog niet aangemaakt. Het eerste issue zet het Vite-project op en moet 
 | Tests van de werking | `npm test` |
 | Tests met de echte app | `npm run test:e2e` |
 | Bouwen voor publicatie | `npm run build` |
+
+- `npm run dev` toont de app op `http://localhost:5173/calculate-waveforms-claude/`.
+- `npm run test:e2e` bouwt de app eerst zelf en opent ze daarna. De eerste keer op een computer heeft Playwright een browser nodig: `npx playwright install chromium`.
+- Tests van de werking staan naast de code als `*.test.ts(x)` in `src/`. Tests met de echte app staan in `e2e/`.
+- De workflow `.github/workflows/ci.yml` voert dezelfde controles uit bij elke pull request en elke push naar `main`.
 
 Voer voor een commit alles uit in deze volgorde: lint, tests, tests met de echte app, build. Ga pas verder als alles slaagt.
 
